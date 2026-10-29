@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vapur Studio</title>
+<meta name="description" content="Vapur Studio – cheerful puzzle games for Android. Home of Mahjong Joy 3D.">
+<link rel="icon" href="icon.png">
+<style>
+  :root { --bg: #fdf6ff; --card: #ffffff; --ink: #2b1a3d; --muted: #6b5a7d; --accent: #7e57c2; --gold: #ff8f00; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1a1224; --card: #261b33; --ink: #f3ecfa; --muted: #b9a8cc; --accent: #b39ddb; --gold: #ffb74d; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: system-ui, sans-serif; line-height: 1.6; }
+  main { max-width: 720px; margin: 0 auto; padding: 40px 16px; }
+  h1 { margin: 0 0 4px; font-size: 2em; }
+  .tag { color: var(--muted); margin: 0 0 32px; }
+  .card { display: flex; gap: 20px; align-items: center; background: var(--card); border-radius: 20px; padding: 20px;
+          box-shadow: 0 4px 20px rgba(80, 40, 120, 0.12); }
+  .card img { width: 96px; height: 96px; border-radius: 22px; flex: none; }
+  .card h2 { margin: 0; font-size: 1.3em; }
+  .card p { margin: 4px 0 12px; color: var(--muted); }
+  .btn { display: inline-block; background: var(--gold); color: #fff; text-decoration: none; font-weight: 700;
+         padding: 8px 18px; border-radius: 999px; }
+  .links { margin-top: 32px; font-size: 0.95em; }
+  .links a { color: var(--accent); }
+  @media (max-width: 480px) { .card { flex-direction: column; text-align: center; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>🚢 Vapur Studio</h1>
+  <p class="tag">Cheerful puzzle games for Android · Android için neşeli bulmaca oyunları</p>
+
+  <div class="card">
+    <img src="icon.png" alt="Mahjong Joy 3D icon">
+    <div>
+      <h2>Mahjong Joy 3D</h2>
+      <p>Match tiles on a 3D board across 60 levels, unlock themes and mascots.<br>
+         3D tahtada taşları eşleştir, 60 bölümü geç, tema ve maskotların kilidini aç.</p>
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.mahjongjoy.game">Google Play</a>
+    </div>
+  </div>
+
+  <p class="links">
+    Privacy policy: <a href="privacy-policy.html">English</a> ·
+    Gizlilik politikası: <a href="privacy-policy-tr.html">Türkçe</a>
+  </p>
+</main>
+</body>
+</html>
