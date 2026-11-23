@@ -1,0 +1,35 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.vapurstudio.sitesaver'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'com.vapurstudio.sitesaver'
+        minSdk 24
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+    }
+    signingConfigs {
+        release {
+            storeFile file('../sitesaver.keystore')
+            storePassword 'sitesaver'
+            keyAlias 'lnd'
+            keyPassword 'sitesaver'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (file('../sitesaver.keystore').exists()) signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    androidResources { noCompress += ['mp3', 'ogg', 'wav', 'm4a'] }
+}
+
+dependencies {
+}
