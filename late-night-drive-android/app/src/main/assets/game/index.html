@@ -1,2 +1,75 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>placeholder</title></head>
-<body style="background:#000;color:#fff;font:20px sans-serif;display:grid;place-items:center;height:100vh;margin:0">Oyun dosyaları buraya gelecek</body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
+    <title>Late Night Drive</title>
+    <style>
+      html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
+      #unity-canvas { position: fixed; left: 0; top: 0; width: 100%; height: 100%; display: block; background: #000; outline: none; }
+      #lnd-start { position: fixed; left: 0; top: 0; width: 100%; height: 100%; display: flex; flex-direction: column;
+                   align-items: center; justify-content: center; gap: 14px; background: #000; color: #ece4d2; cursor: pointer;
+                   user-select: none; -webkit-user-select: none;
+                   font: 700 clamp(12px, 2.4vw, 20px)/1.2 ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.25em; }
+      #lnd-start.loading { cursor: default; }
+      #lnd-hint { font-size: 0.6em; font-weight: 400; letter-spacing: 0.16em; color: #8c8578; text-align: center; padding: 0 16px; }
+      #lnd-bar { width: min(40vw, 320px); height: 4px; background: #2a2a2a; display: none; }
+      #lnd-fill { width: 0; height: 100%; background: #ece4d2; transition: width 0.15s linear; }
+    </style>
+  </head>
+  <body>
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+    <div id="lnd-start" role="button" tabindex="0" aria-label="Tap to play">
+      <div id="lnd-label">TAP TO PLAY</div>
+      <div id="lnd-hint">PARMAĞIN = ELİN &nbsp; FREN = SOL ALT TUŞ</div>
+      <div id="lnd-bar"><div id="lnd-fill"></div></div>
+    </div>
+    <script src="mobile.js"></script>
+    <script>
+      // Late Night Drive web page: the canvas fills the page (the host frames it). The game starts on a click, so the
+      // browser lets its audio play from the first sound and the click never reaches the game.
+      (function () {
+        var canvas = document.getElementById("unity-canvas");
+        var start = document.getElementById("lnd-start");
+        var label = document.getElementById("lnd-label");
+        var hint = document.getElementById("lnd-hint");
+        var bar = document.getElementById("lnd-bar");
+        var fill = document.getElementById("lnd-fill");
+        var started = false;
+        function go() {
+          if (started) return;
+          started = true;
+          start.classList.add("loading");
+          label.textContent = "LOADING";
+          bar.style.display = "block";
+          var s = document.createElement("script");
+          s.src = "Build/late-night-drive.loader.js";
+          s.onload = function () {
+            createUnityInstance(canvas, {
+              devicePixelRatio: Math.min(window.devicePixelRatio || 1, 1.5),
+              webglContextAttributes: { preserveDrawingBuffer: /[?&]test=1/.test(location.search), powerPreference: "high-performance" },
+              arguments: [],
+              dataUrl: "Build/late-night-drive.data",
+              frameworkUrl: "Build/late-night-drive.framework.js",
+              codeUrl: "Build/late-night-drive.wasm",
+              streamingAssetsUrl: "StreamingAssets",
+              companyName: "DefaultCompany",
+              productName: "Late Night Drive",
+              productVersion: "1.0",
+            }, function (p) { fill.style.width = Math.round(p * 100) + "%"; })
+            .then(function () { start.parentNode.removeChild(start); canvas.focus(); if (window.__lndReady) window.__lndReady(); })
+            .catch(function (m) { label.textContent = "COULD NOT START"; hint.textContent = String(m); });
+          };
+          s.onerror = function () { label.textContent = "COULD NOT LOAD"; };
+          document.body.appendChild(s);
+        }
+        start.addEventListener("click", go);
+        start.addEventListener("touchend", function (e) { e.preventDefault(); go(); });
+        // In the app audio may start without a tap, so begin loading right away.
+        if (/LateNightDriveApp/.test(navigator.userAgent)) go();
+        start.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+        canvas.addEventListener("mousedown", function () { canvas.focus(); });
+      })();
+    </script>
+  </body>
+</html>

@@ -4,3 +4,7 @@ app/build/
 local.properties
 *.keystore
 *.jks
+
+# Game files are third-party; keep them out of this public repo
+app/src/main/assets/game/
+*.apk

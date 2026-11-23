@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
         s.setDisplayZoomControls(false);
         s.setTextZoom(100);
         s.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        s.setUserAgentString(s.getUserAgentString() + " LateNightDriveApp");
 
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
