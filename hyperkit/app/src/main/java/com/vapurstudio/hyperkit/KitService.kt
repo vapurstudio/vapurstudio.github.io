@@ -22,6 +22,12 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
+import android.app.KeyguardManager
+import android.os.BatteryManager
+import android.os.PowerManager
+import android.service.notification.StatusBarNotification
+import android.view.inputmethod.InputMethodManager
+import com.vapurstudio.hyperkit.lock.LockScreen
 import com.vapurstudio.hyperkit.tiles.CaffeineTile
 import com.vapurstudio.hyperkit.tiles.MediaKeysTile
 
@@ -32,6 +38,7 @@ class KitService : AccessibilityService(), SharedPreferences.OnSharedPreferenceC
             private set
         val running get() = instance != null
         private val SIDES = listOf("l", "r")
+        private val LOCK_IGNORE = setOf("com.android.systemui", "android", "com.miui.aod", "com.miui.keyguard")
     }
 
     private val handler = Handler(Looper.getMainLooper())
@@ -40,10 +47,30 @@ class KitService : AccessibilityService(), SharedPreferences.OnSharedPreferenceC
     private lateinit var audio: AudioManager
     private val edges = mutableMapOf<String, EdgeView>()
     private var caffeineView: View? = null
+    lateinit var lock: LockScreen
+        private set
+    private lateinit var light: EdgeLight
+    private var profileKeepOn = false
+    @Volatile var currentPkg: String? = null
+        private set
 
-    private val screenOff = object : BroadcastReceiver() {
+    private val screenEvents = object : BroadcastReceiver() {
         override fun onReceive(c: Context, i: Intent) {
-            if (prefs.getBoolean(Prefs.CAFFEINE, false)) prefs.edit().putBoolean(Prefs.CAFFEINE, false).apply()
+            when (i.action) {
+                Intent.ACTION_SCREEN_OFF -> {
+                    if (prefs.getBoolean(Prefs.CAFFEINE, false)) prefs.edit().putBoolean(Prefs.CAFFEINE, false).apply()
+                    if (prefs.getBoolean(Prefs.LOCK_ON, false)) {
+                        if (lock.preview) lock.hide()
+                        lock.show(hidden = true)
+                    }
+                }
+                Intent.ACTION_SCREEN_ON -> if (lock.showing && !lock.preview) {
+                    val km = getSystemService(KeyguardManager::class.java)
+                    if (!km.isKeyguardLocked || audio.mode == AudioManager.MODE_RINGTONE) lock.hide() else lock.reveal()
+                }
+                Intent.ACTION_USER_PRESENT -> if (!lock.preview) lock.hide()
+                Intent.ACTION_BATTERY_CHANGED -> { lock.refreshBattery(); chargeLimit(i) }
+            }
         }
     }
 
@@ -53,7 +80,12 @@ class KitService : AccessibilityService(), SharedPreferences.OnSharedPreferenceC
         audio = getSystemService(AudioManager::class.java)
         prefs = Prefs.get(this)
         prefs.registerOnSharedPreferenceChangeListener(this)
-        registerReceiver(screenOff, IntentFilter(Intent.ACTION_SCREEN_OFF))
+        lock = LockScreen(this)
+        light = EdgeLight(this)
+        registerReceiver(screenEvents, IntentFilter().apply {
+            addAction(Intent.ACTION_SCREEN_OFF); addAction(Intent.ACTION_SCREEN_ON)
+            addAction(Intent.ACTION_USER_PRESENT); addAction(Intent.ACTION_BATTERY_CHANGED)
+        })
         Torch.init(this)
         refreshEdges()
         refreshCaffeine()
@@ -61,14 +93,55 @@ class KitService : AccessibilityService(), SharedPreferences.OnSharedPreferenceC
         refreshTiles()
     }
 
-    override fun onAccessibilityEvent(event: AccessibilityEvent?) {}
+    override fun onAccessibilityEvent(event: AccessibilityEvent?) {
+        if (event?.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return
+        val pkg = event.packageName?.toString() ?: return
+        // Another app (incoming call, alarm, camera…) came over the keyguard: get out of its way.
+        if (lock.showing && !lock.preview && pkg !in LOCK_IGNORE && pkg != packageName && !Action.isHome(this, pkg)) lock.hide()
+        if (pkg == "com.android.systemui") return
+        val ime = runCatching {
+            getSystemService(InputMethodManager::class.java).enabledInputMethodList.any { it.packageName == pkg }
+        }.getOrDefault(false)
+        if (!ime) currentPkg = pkg
+        val keep = Profiles.onForeground(this, pkg, ime) ?: return
+        if (keep != profileKeepOn) { profileKeepOn = keep; refreshCaffeine() }
+    }
+
+    /** From [NotiService]: refresh the lock screen and run edge lighting for new notifications. */
+    fun onNotificationsChanged(sbn: StatusBarNotification?) {
+        handler.post {
+            if (lock.showing) lock.refresh()
+            if (sbn != null && prefs.getBoolean(Prefs.LIGHT_ON, false) && sbn.packageName != currentPkg &&
+                getSystemService(PowerManager::class.java).isInteractive) {
+                light.flash(sbn.notification.color)
+            }
+        }
+    }
+
+    fun testLight() = light.flash(null)
+
+    // ---------------- Root: charge limit (Battery Guardian) ----------------
+
+    private var chargeStopped: Boolean? = null
+
+    private fun chargeLimit(i: Intent) {
+        val node = prefs.getString(Prefs.CHG_NODE, null) ?: return
+        val on = prefs.getBoolean(Prefs.CHG_ON, false) && Prefs.isRoot(this)
+        val level = i.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) * 100 / i.getIntExtra(BatteryManager.EXTRA_SCALE, 100).coerceAtLeast(1)
+        val limit = prefs.getInt(Prefs.CHG_LIMIT, 80)
+        val stop = on && (level >= limit || (chargeStopped == true && level > limit - 5))
+        if (stop == chargeStopped) return
+        chargeStopped = stop
+        Root.run(ChargeNode.write(node, stop))
+    }
     override fun onInterrupt() {}
 
     override fun onDestroy() {
         if (instance === this) {
             instance = null
             prefs.unregisterOnSharedPreferenceChangeListener(this)
-            runCatching { unregisterReceiver(screenOff) }
+            runCatching { unregisterReceiver(screenEvents) }
+            lock.hide()
             removeEdges()
             caffeineView?.let { runCatching { wm.removeView(it) } }
             caffeineView = null
@@ -86,6 +159,11 @@ class KitService : AccessibilityService(), SharedPreferences.OnSharedPreferenceC
         when {
             key == null -> { refreshEdges(); refreshCaffeine(); refreshKeyFilter() }
             key == Prefs.CAFFEINE -> { refreshCaffeine(); refreshTiles() }
+            key == Prefs.LOCK_BG_URI || key == Prefs.LOCK_BG -> lock.invalidateBackground()
+            key == Prefs.CHG_ON || key == Prefs.CHG_LIMIT -> {
+                chargeStopped = null
+                registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.let { chargeLimit(it) }
+            }
             key == Prefs.MEDIA_KEYS || key == Prefs.LONG_PRESS_SKIP -> { refreshKeyFilter(); refreshTiles() }
             key.startsWith("edge_") -> refreshEdges()
         }
@@ -159,7 +237,7 @@ class KitService : AccessibilityService(), SharedPreferences.OnSharedPreferenceC
     // ---------------- Caffeine ----------------
 
     private fun refreshCaffeine() {
-        val want = prefs.getBoolean(Prefs.CAFFEINE, false)
+        val want = prefs.getBoolean(Prefs.CAFFEINE, false) || profileKeepOn
         if (want && caffeineView == null) {
             val v = View(this)
             val lp = WindowManager.LayoutParams(

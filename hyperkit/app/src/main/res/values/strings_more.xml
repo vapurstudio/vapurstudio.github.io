@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- onboarding / modes -->
+    <string name="ob_title">Welcome</string>
+    <string name="ob_body">Choose how HyperKit works on your phone. You can change this any time from the main screen.</string>
+    <string name="mode_standard">Standard mode</string>
+    <string name="mode_standard_desc">No root. Works on every HyperOS phone.</string>
+    <string name="mode_standard_list">• Lock screen, ClockFace, Edge lighting, Wonderland wallpaper\n• Edge gestures, Sound assistant, Quick tiles\n• Notification history, App profiles, Hidden settings\n• System tuner (with a one-time ADB command)</string>
+    <string name="mode_root">Root mode</string>
+    <string name="mode_root_desc">Needs Magisk, KernelSU or APatch. Everything in Standard, plus more.</string>
+    <string name="mode_root_list">• All permissions granted automatically – no ADB, service kept on\n• Refresh rate lock and display density\n• Charge limit (Battery Guardian)\n• Freeze apps, force stop, open any app in a floating window\n• Remove the gesture line / keyboard gap\n• “Kill app” edge gesture, reboot to recovery / bootloader, restart System UI</string>
+    <string name="ob_pick_standard">Use Standard mode</string>
+    <string name="ob_pick_root">Use Root mode</string>
+    <string name="ob_checking">Checking root…</string>
+    <string name="ob_no_root">Root access not granted. Allow HyperKit in your root manager or use Standard mode.</string>
+    <string name="ob_root_ok">Root mode ready – permissions granted</string>
+    <string name="ob_root_partial">Root mode on, but some permissions could not be granted</string>
+    <string name="ob_change_later">Root mode never changes the system on its own: every root action runs only when you tap it.</string>
+    <string name="mode_change">Tap to change mode</string>
+    <string name="needs_root">Needs Root mode</string>
+    <string name="group_makeup">Make up – look</string>
+    <string name="group_lifeup">Life up – use</string>
+    <string name="group_root">Root</string>
+    <string name="listener_off">Notification access off</string>
+    <string name="listener_why">Needed for lock screen notifications &amp; music, edge lighting and notification history.</string>
+
+    <!-- modules -->
+    <string name="mod_lock">Lock Screen</string>
+    <string name="mod_lock_desc">Your own lock screen: clock styles, wallpaper, notifications, music and shortcuts.</string>
+    <string name="mod_clockface">ClockFace</string>
+    <string name="clockface_desc">A dim, burn-in safe clock shown while charging or docked (screen saver). Pick it in Settings → Display → Screen saver.</string>
+    <string name="clockface_open">Open screen saver settings</string>
+    <string name="mod_light">Edge Lighting</string>
+    <string name="mod_light_desc">The screen edges glow when a notification arrives.</string>
+    <string name="mod_wonder">Wonderland</string>
+    <string name="mod_wonder_desc">Live wallpaper from your own photo that moves with the phone.</string>
+    <string name="wonder_desc">Choose a photo; it shifts with the tilt of your phone for a 3D depth effect. Uses the motion sensor only while the wallpaper is visible.</string>
+    <string name="wonder_depth">Depth</string>
+    <string name="wonder_apply">Set as wallpaper</string>
+    <string name="mod_noti">Notification History</string>
+    <string name="mod_noti_desc">Every notification saved on the device – searchable, even deleted ones.</string>
+    <string name="mod_profiles">App Profiles</string>
+    <string name="mod_profiles_desc">Per-app rotation, brightness, media volume and keep screen on.</string>
+    <string name="mod_root">Root Tools</string>
+    <string name="mod_root_desc">Refresh rate, density, charge limit, gesture line, reboot menu.</string>
+    <string name="mod_rootapps">App Manager</string>
+    <string name="mod_rootapps_desc">Freeze apps, force stop, floating windows.</string>
+
+    <!-- lock screen -->
+    <string name="lock_enable">Use HyperKit lock screen</string>
+    <string name="lock_enable_desc">Shown over the system lock screen. Swipe up to unlock with your PIN, fingerprint or face as usual.</string>
+    <string name="lock_preview">Preview</string>
+    <string name="lock_note">Your security is unchanged: after the swipe, HyperOS asks for your PIN / fingerprint. The under-display fingerprint icon becomes visible after the swipe. Incoming calls and alarms close this screen automatically.</string>
+    <string name="lock_clock">Clock</string>
+    <string name="lock_style">Clock style</string>
+    <string name="lock_position">Clock position</string>
+    <string name="pos_top">Top</string>
+    <string name="pos_center">Centre</string>
+    <string name="lock_size">Clock size</string>
+    <string name="lock_color">Clock colour</string>
+    <string name="lock_message">Lock screen message</string>
+    <string name="lock_background">Background</string>
+    <string name="bg_image">My photo</string>
+    <string name="bg_black">AMOLED black</string>
+    <string name="bg_gradient">Gradient %1$d</string>
+    <string name="bg_pick">Choose photo</string>
+    <string name="lock_dim">Dim</string>
+    <string name="lock_content_title">Content</string>
+    <string name="lock_notifs">Notifications</string>
+    <string name="notif_cards">Cards</string>
+    <string name="notif_icons">Icons only</string>
+    <string name="notif_none">Hidden</string>
+    <string name="lock_show_content">Show notification text</string>
+    <string name="lock_show_content_desc">Off: only the app name is shown while locked.</string>
+    <string name="lock_media">Music controls</string>
+    <string name="lock_battery">Battery &amp; charging info</string>
+    <string name="lock_double_tap">Double tap to turn off screen</string>
+    <string name="lock_shortcuts">Shortcuts</string>
+    <string name="sc_left">Left shortcut</string>
+    <string name="sc_right">Right shortcut</string>
+    <string name="sc_camera">Camera</string>
+    <string name="sc_app">App</string>
+    <string name="lock_hint">Swipe up to unlock</string>
+    <string name="lock_new_notif">New notification</string>
+    <string name="lock_charging">%1$d%% · Charging</string>
+    <string name="cs_digital">Thin digital</string>
+    <string name="cs_bold">Bold</string>
+    <string name="cs_stacked">Stacked</string>
+    <string name="cs_outline">Outline</string>
+    <string name="cs_analog">Analogue</string>
+    <string name="cs_minimal">Minimal</string>
+
+    <!-- edge lighting -->
+    <string name="light_enable">Edge lighting</string>
+    <string name="light_enable_desc">When the screen is on and the notification is from another app.</string>
+    <string name="light_color">Colour</string>
+    <string name="light_app">App colour</string>
+    <string name="light_accent">HyperKit blue</string>
+    <string name="light_rainbow">Rainbow</string>
+    <string name="light_width">Thickness</string>
+    <string name="light_time">Duration</string>
+    <string name="light_test">Try it</string>
+    <string name="light_note">Android does not let apps light up a turned-off screen, so lighting appears only while the screen is on (also over HyperKit\'s lock screen).</string>
+
+    <!-- notification history -->
+    <string name="noti_record">Save notifications</string>
+    <string name="noti_record_desc">Stored only on this phone, up to the last 3000.</string>
+    <string name="noti_filter">App</string>
+    <string name="noti_all">All apps</string>
+    <string name="noti_clear">Clear history</string>
+    <string name="noti_clear_q">Delete all saved notifications?</string>
+    <string name="noti_search">Search</string>
+    <string name="noti_empty">Nothing here yet</string>
+
+    <!-- profiles -->
+    <string name="profiles_desc">When the app opens these settings are applied, and restored when you leave it.</string>
+    <string name="profiles_add">Add app</string>
+    <string name="prof_rotation">Rotation</string>
+    <string name="rot_auto">Auto-rotate</string>
+    <string name="rot_portrait">Portrait</string>
+    <string name="rot_landscape">Landscape</string>
+    <string name="keep_system">System</string>
+    <string name="prof_keep_on">Keep screen on</string>
+    <string name="prof_brightness">Brightness</string>
+    <string name="prof_volume">Media volume</string>
+    <string name="prof_delete">Delete profile</string>
+
+    <!-- tuner extras -->
+    <string name="keep_alive">Keep the service on</string>
+    <string name="keep_alive_desc">Re-enables HyperKit\'s accessibility and notification access if HyperOS turns them off (on boot and when you open the app).</string>
+    <string name="nav_title">Navigation</string>
+    <string name="nav_hide_line">Hide gesture line</string>
+    <string name="nav_hide_line_desc">Experimental – legacy MIUI key, some HyperOS builds ignore it. HyperOS also has this under Settings → Full screen.</string>
+    <string name="monet_title">System colour (Material You)</string>
+    <string name="monet_desc">Experimental – sets the Material You seed colour. Used by Google and many third-party apps; HyperOS\'s own apps may keep their colours.</string>
+    <string name="monet_reset">Use wallpaper colours</string>
+
+    <!-- root tools -->
+    <string name="root_ok">Root access granted</string>
+    <string name="root_grant">Grant all permissions with root</string>
+    <string name="root_grant_desc">Secure settings, modify settings, overlay, notification access, accessibility and no battery restrictions.</string>
+    <string name="rr_title">Refresh rate</string>
+    <string name="rr_desc">Locks the screen to one refresh rate.</string>
+    <string name="rr_auto">Automatic</string>
+    <string name="density">Display size (density)</string>
+    <string name="density_keep">Keep this display size? It will be reverted in 15 seconds.</string>
+    <string name="density_reset">Reset display size</string>
+    <string name="keep">Keep</string>
+    <string name="revert">Revert</string>
+    <string name="nav_gap_desc">Removes the HyperOS gesture-line overlay, which also removes the empty gap under keyboards. Can be restored at any time. Takes effect after a reboot.</string>
+    <string name="nav_gap_remove">Remove gesture line &amp; gap</string>
+    <string name="nav_gap_restore">Restore gesture line</string>
+    <string name="done">Done</string>
+    <string name="done_reboot">Done – reboot to apply</string>
+    <string name="chg_title">Charge limit</string>
+    <string name="chg_desc" formatted="false">Stops charging at the chosen level and resumes 5% below it, to reduce battery wear. Works on kernels that expose a charging switch.</string>
+    <string name="chg_unsupported">No supported charging switch found on this phone. Use HyperOS\'s own Battery protection instead.</string>
+    <string name="chg_enable">Limit charging</string>
+    <string name="chg_limit">Stop at</string>
+    <string name="power_title">Power</string>
+    <string name="pw_systemui">Restart System UI</string>
+    <string name="pw_reboot">Reboot</string>
+    <string name="pw_recovery">Reboot to recovery</string>
+    <string name="pw_bootloader">Reboot to bootloader (fastboot)</string>
+    <string name="pw_off">Power off</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="rootapps_desc">Frozen apps (❄) stay installed but cannot run or show notifications until you unfreeze them.</string>
+    <string name="rootapps_system">Show system apps</string>
+    <string name="rootapps_system_desc">Careful: freezing the wrong system app can break your phone.</string>
+    <string name="ra_floating">Open in floating window</string>
+    <string name="ra_freeze">Freeze</string>
+    <string name="ra_unfreeze">Unfreeze</string>
+    <string name="ra_stop">Force stop</string>
+    <string name="ra_clear_cache">Clear cache</string>
+    <string name="act_kill">Close current app (root)</string>
+</resources>

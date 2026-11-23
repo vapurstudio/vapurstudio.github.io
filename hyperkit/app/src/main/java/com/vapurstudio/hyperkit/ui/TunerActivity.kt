@@ -44,6 +44,16 @@ class TunerActivity : BaseActivity() {
                 getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText("adb", cmd))
                 toast(R.string.copied)
             }
+            if (com.vapurstudio.hyperkit.Prefs.isRoot(this)) button(perm, getString(R.string.root_grant)) {
+                com.vapurstudio.hyperkit.Access.grantAllWithRoot(this) { rebuild() }
+            }
+        }
+        if (secure) {
+            switchRow(perm, getString(R.string.keep_alive), getString(R.string.keep_alive_desc),
+                prefs.getBoolean(com.vapurstudio.hyperkit.Prefs.KEEP_ALIVE, true)) {
+                prefs.edit().putBoolean(com.vapurstudio.hyperkit.Prefs.KEEP_ALIVE, it).apply()
+                if (it) com.vapurstudio.hyperkit.Access.ensureService(this)
+            }
         }
 
         sectionTitle(R.string.tuner_anim)
@@ -68,6 +78,20 @@ class TunerActivity : BaseActivity() {
             }
         }
         note(ic, getString(R.string.tuner_icons_hint))
+
+        sectionTitle(R.string.nav_title)
+        val nv = card()
+        switchRow(nv, getString(R.string.nav_hide_line), getString(R.string.nav_hide_line_desc),
+            Settings.Global.getInt(contentResolver, "hide_gesture_line", 0) == 1, enabled = secure) {
+            runCatching { Settings.Global.putInt(contentResolver, "hide_gesture_line", if (it) 1 else 0) }
+        }
+
+        sectionTitle(R.string.monet_title)
+        val mo = card()
+        note(mo, getString(R.string.monet_desc))
+        val monet = Tuner.monetColor(this)
+        swatches(mo, Tuner.MONET, monet ?: 0) { if (secure) { Tuner.setMonet(this, it); rebuild() } else toast(R.string.tuner_perm_title) }
+        row(mo, getString(R.string.monet_reset), enabled = secure) { if (secure) { Tuner.setMonet(this, null); rebuild() } }
 
         sectionTitle(R.string.tuner_display)
         val d = card()

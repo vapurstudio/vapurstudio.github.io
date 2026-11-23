@@ -29,7 +29,7 @@ import com.vapurstudio.hyperkit.R
 abstract class BaseActivity : Activity() {
     protected lateinit var root: LinearLayout
     protected val prefs: SharedPreferences by lazy { Prefs.get(this) }
-    protected open val showBack = true
+    protected open val showBack: Boolean = true
     protected abstract val screenTitle: Int
 
     protected val ink get() = getColor(R.color.ink)
@@ -246,4 +246,36 @@ abstract class BaseActivity : Activity() {
     }
 
     fun openAccessibility() = tryStart(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+
+    fun openListenerSettings() = tryStart(
+        Intent(Settings.ACTION_NOTIFICATION_LISTENER_DETAIL_SETTINGS)
+            .putExtra(Settings.EXTRA_NOTIFICATION_LISTENER_COMPONENT_NAME,
+                com.vapurstudio.hyperkit.Access.listener(this).flattenToString()),
+        Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS),
+    )
+
+    /** Small row of colour dots; tapping one calls [onPick]. */
+    fun swatches(parent: ViewGroup, colors: List<Int>, selected: Int, onPick: (Int) -> Unit) {
+        val bar = LinearLayout(this).apply { setPadding(dp(16), dp(6), dp(16), dp(12)) }
+        for (c in colors) {
+            val v = View(this).apply {
+                background = GradientDrawable().apply {
+                    shape = GradientDrawable.OVAL; setColor(c)
+                    if (c == selected) setStroke(dp(3), accent) else setStroke(dp(1), muted)
+                }
+                setOnClickListener { onPick(c) }
+            }
+            bar.addView(v, LinearLayout.LayoutParams(dp(34), dp(34)).apply { marginEnd = dp(10) })
+        }
+        parent.addView(android.widget.HorizontalScrollView(this).apply { isHorizontalScrollBarEnabled = false; addView(bar) })
+    }
+
+    /** Single-choice dialog over string resources. */
+    fun choose(title: CharSequence, labels: List<CharSequence>, current: Int, onPick: (Int) -> Unit) {
+        android.app.AlertDialog.Builder(this)
+            .setTitle(title)
+            .setSingleChoiceItems(labels.toTypedArray(), current) { d, i -> d.dismiss(); onPick(i) }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
 }

@@ -28,6 +28,57 @@ object Prefs {
     // Animations tile: remembers scales before turning them off
     const val ANIM_SAVED = "anim_saved"
 
+    // Mode chosen on first launch: "standard" or "root"
+    const val MODE = "mode"
+    const val KEEP_ALIVE = "keep_alive"
+
+    // Lock screen (LockStar)
+    const val LOCK_ON = "lock_on"
+    const val LOCK_STYLE = "lock_style"          // ClockStyle name
+    const val LOCK_COLOR = "lock_color"          // ARGB int
+    const val LOCK_SIZE = "lock_size"            // 60..140 %
+    const val LOCK_POS = "lock_pos"              // "top" | "center"
+    const val LOCK_BG = "lock_bg"                // "image" | "black" | "g0".."g5"
+    const val LOCK_BG_URI = "lock_bg_uri"
+    const val LOCK_DIM = "lock_dim"              // 0..80 %
+    const val LOCK_MSG = "lock_msg"
+    const val LOCK_NOTIF = "lock_notif"          // "none" | "icons" | "cards"
+    const val LOCK_CONTENT = "lock_content"      // show notification text
+    const val LOCK_MEDIA = "lock_media"
+    const val LOCK_BATTERY = "lock_battery"
+    const val LOCK_DOUBLE_TAP = "lock_double_tap"
+    const val LOCK_SC_LEFT = "lock_sc_l"         // "none" | "camera" | "flash" | "app:<pkg>"
+    const val LOCK_SC_RIGHT = "lock_sc_r"
+
+    // ClockFace (screensaver)
+    const val AOD_STYLE = "aod_style"
+    const val AOD_COLOR = "aod_color"
+
+    // Edge lighting
+    const val LIGHT_ON = "light_on"
+    const val LIGHT_COLOR = "light_color"        // "app" | "accent" | "rainbow"
+    const val LIGHT_WIDTH = "light_width"        // 2..16 dp
+    const val LIGHT_TIME = "light_time"          // 1..8 s
+
+    // Notification history (NotiStar)
+    const val NOTI_LOG = "noti_log"
+
+    // App profiles
+    const val PROFILES = "profiles"
+    const val PROFILE_BASE = "profile_base"
+
+    // Wonderland
+    const val WL_URI = "wl_uri"
+    const val WL_DEPTH = "wl_depth"              // 2..20 %
+    const val WL_DIM = "wl_dim"                  // 0..60 %
+
+    // Root: charge limit
+    const val CHG_ON = "chg_on"
+    const val CHG_LIMIT = "chg_limit"
+    const val CHG_NODE = "chg_node"
+
+    fun isRoot(ctx: Context) = get(ctx).getString(MODE, null) == "root"
+
     fun get(ctx: Context): SharedPreferences =
         ctx.applicationContext.getSharedPreferences(FILE, Context.MODE_PRIVATE)
 

@@ -3,21 +3,50 @@
 Root gerektirmeyen, modüler bir özelleştirme uygulaması. Samsung Good Lock'taki popüler modüllerin
 HyperOS'ta (Xiaomi / Redmi / POCO) üçüncü taraf bir uygulamanın yapabildiği kadarını sunar.
 
+İlk açılışta **mod seçimi** yapılır (sonradan ana ekrandan değiştirilebilir):
+
+- **Standart mod** – root gerekmez, her HyperOS telefonda çalışır.
+- **Root modu** – Magisk / KernelSU / APatch ile; tüm izinler otomatik verilir (ADB gerekmez) ve ek araçlar açılır.
+
+### Make up – görünüm
 | Modül | Good Lock karşılığı | Ne yapar |
 |---|---|---|
-| **Kenar Hareketleri** | One Hand Operation+ | Sol/sağ kenarda ayarlanabilir tutamak. 4 hareket (içeri, çapraz yukarı, çapraz aşağı, kaydır-tut) × 17 eylem: geri, ana ekran, son uygulamalar, önceki uygulama, bildirimler, Kontrol Merkezi, kilitle, ekran görüntüsü, güç menüsü, bölünmüş ekran, medya, ses paneli, fener, kafein. Konum / yükseklik / genişlik / görünürlük / mesafe ayarı, titreşim. |
-| **Ses Asistanı** | Sound Assistant | Ses tuşları her zaman medyayı kontrol eder; müzik çalarken uzun basarak parça geçme; tüm ses düzeyleri tek ekranda. |
-| **Hızlı Kutucuklar** | QuickStar | Kontrol Merkezi kutucukları: Kafein (ekranı açık tut), Kilitle, Ekran görüntüsü, Güç menüsü, Animasyonlar aç/kapa, Medya tuşları. Uygulamadan tek dokunuşla eklenir. |
-| **Gizli Ayarlar** | — | Kullanım istatistikleri, bildirim günlüğü, ağ bilgisi (*#*#4636#*#*), otomatik başlatma, arka plan kısıtları, HyperOS izin yöneticisi, CIT donanım testi vb. Uzun basarak ana ekrana kısayol. |
-| **Sistem Ayarlayıcı** | Home Up / NiceShot ayarları | Animasyon ölçekleri, durum çubuğu simgesi gizleme (icon_blacklist), ekran zaman aşımı, yazı boyutu. |
+| **Kilit Ekranı** | LockStar | Sistem kilit ekranının üstünde kendi kilit ekranınız: 6 saat stili (ince, kalın, üst üste, dış hatlı, analog, minimal), renk/boyut/konum, fotoğraf / AMOLED / gradyan arka plan, karartma, mesaj, bildirim kartları veya simgeler (metin gizlenebilir), müzik kontrolleri, pil/şarj bilgisi, sol-sağ kısayollar (kamera, fener, uygulama), çift dokunarak kapatma. Yukarı kaydırınca HyperOS PIN/parmak izi ister – güvenlik değişmez. Arama/alarm gelince kendini kapatır. |
+| **Saat Yüzü** | ClockFace / AOD | Şarjdayken çalışan, ekran yanığına karşı kayan, loş saat ekran koruyucusu (DreamService). |
+| **Kenar Aydınlatma** | Edge Lighting+ | Bildirim gelince ekran kenarında dönen parlama; uygulama rengi / mavi / gökkuşağı, kalınlık, süre. |
+| **Wonderland** | Wonderland | Kendi fotoğrafınızdan, telefon eğildikçe kayan 3B derinlikli canlı duvar kağıdı. |
+| **Hızlı Kutucuklar** | QuickStar | Kafein, Kilitle, Ekran görüntüsü, Güç menüsü, Animasyonlar, Medya tuşları. |
+| **Sistem Ayarlayıcı** | QuickStar / Theme Park / NavStar | Animasyon hızı, durum çubuğu simgeleri, hareket çizgisini gizleme, Material You sistem rengi, ekran zaman aşımı, yazı boyutu, hizmeti açık tutma. |
+
+### Life up – kullanım
+| Modül | Good Lock karşılığı | Ne yapar |
+|---|---|---|
+| **Kenar Hareketleri** | One Hand Operation+ | Sol/sağ tutamak, 4 hareket × 18 eylem (root modunda “uygulamayı kapat” dahil). |
+| **Ses Asistanı** | Sound Assistant | Ses tuşları medyayı kontrol eder, uzun basarak parça geçme, tüm ses düzeyleri. |
+| **Bildirim Geçmişi** | NotiStar | Silinenler dahil tüm bildirimler cihazda saklanır; arama ve uygulama filtresi. |
+| **Uygulama Profilleri** | Display Assistant + uygulama sesi | Uygulamaya özel döndürme, parlaklık, medya sesi, ekranı açık tutma; çıkınca geri alınır. |
+| **Gizli Ayarlar** | RegiStar (kısmen) | 15 gizli Android/HyperOS ekranı, ana ekran kısayolu. |
+
+### Root
+| Modül | Good Lock karşılığı | Ne yapar |
+|---|---|---|
+| **Root Araçları** | Battery Guardian, Display Assistant | Yenileme hızı kilidi, ekran yoğunluğu (15 sn otomatik geri alma), şarj sınırı, hareket çizgisi + klavye boşluğu kaldırma, Sistem Arayüzü / kurtarma / bootloader yeniden başlatma. |
+| **Uygulama Yöneticisi** | MultiStar | Uygulama dondur/çöz, zorla durdur, önbellek temizle, yüzen pencerede aç. |
+
+### Uyarlanamayanlar
+- **Keys Cafe** (klavye) ayrı bir klavye (IME) uygulaması gerektirir.
+- **Home Up** (başlatıcı): HyperOS başlatıcısı dışarıdan özelleştirilemez.
+- **Edge Touch, NiceCatch, Camera Assistant**: sistem imzası gerektirir.
+- **Kapalı ekranda kenar aydınlatma**: Android buna izin vermez.
 
 ## Kurulum
 1. APK'yı kurun, uygulamayı açın.
 2. **Ayarlar → Ek ayarlar → Erişilebilirlik → İndirilen uygulamalar → HyperKit** hizmetini açın
    (Kenar Hareketleri, Ses Asistanı ve Kilitle/Ekran görüntüsü/Güç/Kafein kutucukları için).
-3. HyperOS hizmeti öldürmesin diye: **Otomatik başlatma** açık, **Pil tasarrufu → Kısıtlama yok**,
+3. Kilit ekranı, kenar aydınlatma ve bildirim geçmişi için **Bildirim erişimi** verin (uygulama yönlendirir).
+4. HyperOS hizmeti öldürmesin diye: **Otomatik başlatma** açık, **Pil tasarrufu → Kısıtlama yok**,
    Son uygulamalarda HyperKit'i kilitleyin.
-4. Sistem Ayarlayıcı için bir kez (USB hata ayıklama açık):
+5. Standart modda Sistem Ayarlayıcı için bir kez (USB hata ayıklama açık):
    ```
    adb shell pm grant com.vapurstudio.hyperkit android.permission.WRITE_SECURE_SETTINGS
    ```

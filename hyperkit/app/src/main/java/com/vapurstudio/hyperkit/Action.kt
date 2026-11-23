@@ -28,7 +28,8 @@ enum class Action(val label: Int) {
     PREV(R.string.act_prev),
     VOLUME_PANEL(R.string.act_volume_panel),
     FLASHLIGHT(R.string.act_flashlight),
-    CAFFEINE(R.string.act_caffeine);
+    CAFFEINE(R.string.act_caffeine),
+    KILL_APP(R.string.act_kill);
 
     /** Runs the action. Global actions need the accessibility service; the rest work anywhere. */
     fun perform(ctx: Context, service: AccessibilityService?): Boolean {
@@ -73,10 +74,26 @@ enum class Action(val label: Int) {
                 if (service == null) Toast.makeText(ctx, R.string.enable_service_first, Toast.LENGTH_SHORT).show()
                 true
             }
+            KILL_APP -> {
+                val pkg = (service as? KitService)?.currentPkg
+                if (!Prefs.isRoot(ctx)) {
+                    Toast.makeText(ctx, R.string.needs_root, Toast.LENGTH_SHORT).show(); false
+                } else if (pkg == null || pkg == ctx.packageName || isHome(ctx, pkg)) false
+                else {
+                    service?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME)
+                    Root.run("am force-stop $pkg")
+                    true
+                }
+            }
         }
     }
 
     companion object {
+        fun isHome(ctx: Context, pkg: String): Boolean {
+            val i = android.content.Intent(android.content.Intent.ACTION_MAIN).addCategory(android.content.Intent.CATEGORY_HOME)
+            return ctx.packageManager.resolveActivity(i, 0)?.activityInfo?.packageName == pkg
+        }
+
         fun fromName(name: String?): Action? = entries.firstOrNull { it.name == name }
 
         fun mediaKey(ctx: Context, code: Int): Boolean {
