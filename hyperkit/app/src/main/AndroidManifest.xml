@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Granted by the user with ADB for the System Tuner module -->
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <!-- Screen timeout / font size (user grants via "Modify system settings") -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+
+    <queries>
+        <package android:name="com.android.settings" />
+        <package android:name="com.android.phone" />
+        <package android:name="com.android.systemui" />
+        <package android:name="com.miui.securitycenter" />
+        <package android:name="com.miui.cit" />
+        <package android:name="com.miui.powerkeeper" />
+        <package android:name="com.xiaomi.misettings" />
+        <intent><action android:name="miui.intent.action.APP_PERM_EDITOR" /></intent>
+        <intent><action android:name="miui.intent.action.OP_AUTO_START" /></intent>
+        <intent><action android:name="miui.intent.action.POWER_HIDE_MODE_APP_LIST" /></intent>
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.HyperKit">
+
+        <activity android:name=".ui.MainActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.EdgeActivity" android:exported="false" />
+        <activity android:name=".ui.SoundActivity" android:exported="false" />
+        <activity android:name=".ui.TilesActivity" android:exported="false" />
+        <activity android:name=".ui.HiddenActivity" android:exported="false" />
+        <activity android:name=".ui.TunerActivity" android:exported="false" />
+        <activity android:name=".ui.LaunchActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <service
+            android:name=".KitService"
+            android:exported="false"
+            android:label="@string/service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_config" />
+        </service>
+
+        <service android:name=".tiles.CaffeineTile" android:exported="true"
+            android:icon="@drawable/ic_coffee" android:label="@string/tile_caffeine"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE" android:value="true" />
+        </service>
+        <service android:name=".tiles.LockTile" android:exported="true"
+            android:icon="@drawable/ic_lock" android:label="@string/tile_lock"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <service android:name=".tiles.ScreenshotTile" android:exported="true"
+            android:icon="@drawable/ic_screenshot" android:label="@string/tile_screenshot"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <service android:name=".tiles.PowerTile" android:exported="true"
+            android:icon="@drawable/ic_power" android:label="@string/tile_power"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <service android:name=".tiles.AnimationsTile" android:exported="true"
+            android:icon="@drawable/ic_animation" android:label="@string/tile_animations"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE" android:value="true" />
+        </service>
+        <service android:name=".tiles.MediaKeysTile" android:exported="true"
+            android:icon="@drawable/ic_volume" android:label="@string/tile_media_keys"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE" android:value="true" />
+        </service>
+    </application>
+</manifest>

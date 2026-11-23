@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">HyperKit</string>
+    <string name="app_tagline">Customization toolkit for HyperOS. No root needed.</string>
+    <string name="service_label">HyperKit gestures &amp; keys</string>
+    <string name="service_summary">Edge gestures, volume key actions, keep screen on</string>
+    <string name="service_description">HyperKit uses this service only to: draw the edge gesture handles you configure, perform system actions you choose (back, home, recents, lock screen, screenshot…), keep the screen on when Caffeine is enabled and react to volume key presses for Sound Assistant. It does not read screen content and no data leaves your device.</string>
+
+    <!-- setup -->
+    <string name="setup_body">Edge Gestures, Sound Assistant and several tiles need the accessibility service. On HyperOS: Settings → Additional settings → Accessibility → Downloaded apps → HyperKit.</string>
+    <string name="setup_open">Open accessibility settings</string>
+    <string name="setup_autostart">HyperOS tip: allow Autostart and set Battery saver to “No restrictions” for HyperKit, and lock it in Recents, so the system does not stop the service.</string>
+    <string name="setup_autostart_btn">Autostart settings</string>
+    <string name="service_on">Service running</string>
+    <string name="service_off">Service off</string>
+
+    <!-- modules -->
+    <string name="mod_edge">Edge Gestures</string>
+    <string name="mod_edge_desc">Swipe from the screen edges for back, home, recents, screenshot and more.</string>
+    <string name="mod_sound">Sound Assistant</string>
+    <string name="mod_sound_desc">Volume keys control media, long-press to skip tracks, all volumes in one place.</string>
+    <string name="mod_tiles">Quick Tiles</string>
+    <string name="mod_tiles_desc">Extra Control Center tiles: Caffeine, lock, screenshot, power menu, animations.</string>
+    <string name="mod_hidden">Hidden Settings</string>
+    <string name="mod_hidden_desc">Open hidden Android and HyperOS screens and pin them to the home screen.</string>
+    <string name="mod_tuner">System Tuner</string>
+    <string name="mod_tuner_desc">Animation speed, status bar icons, screen timeout and font size.</string>
+    <string name="needs_service">Needs the HyperKit service</string>
+
+    <!-- edge -->
+    <string name="edge_left">Left edge</string>
+    <string name="edge_right">Right edge</string>
+    <string name="edge_enabled">Enabled</string>
+    <string name="edge_swipe_in">Swipe in</string>
+    <string name="edge_swipe_up">Swipe in diagonally up</string>
+    <string name="edge_swipe_down">Swipe in diagonally down</string>
+    <string name="edge_hold">Swipe in and hold</string>
+    <string name="edge_position">Vertical position</string>
+    <string name="edge_height">Height</string>
+    <string name="edge_width">Width</string>
+    <string name="edge_visibility">Visibility</string>
+    <string name="edge_general">General</string>
+    <string name="edge_haptic">Vibrate on action</string>
+    <string name="edge_landscape">Keep in landscape</string>
+    <string name="edge_sensitivity">Swipe distance</string>
+    <string name="edge_note">With HyperOS full-screen gestures, the system back gesture takes priority on the edges. Keep handles short (under ~¼ of the screen) or move them off the system gesture area. Set visibility above 0 to see the handle while adjusting.</string>
+
+    <!-- actions -->
+    <string name="act_none">None</string>
+    <string name="act_back">Back</string>
+    <string name="act_home">Home</string>
+    <string name="act_recents">Recent apps</string>
+    <string name="act_last_app">Previous app</string>
+    <string name="act_notifications">Notifications</string>
+    <string name="act_quick_settings">Control Center</string>
+    <string name="act_lock">Lock screen</string>
+    <string name="act_screenshot">Screenshot</string>
+    <string name="act_power">Power menu</string>
+    <string name="act_split">Split screen</string>
+    <string name="act_play_pause">Play / pause</string>
+    <string name="act_next">Next track</string>
+    <string name="act_prev">Previous track</string>
+    <string name="act_flashlight">Flashlight</string>
+    <string name="act_caffeine">Caffeine (keep screen on)</string>
+    <string name="act_volume_panel">Volume panel</string>
+
+    <!-- sound -->
+    <string name="sound_keys">Volume keys</string>
+    <string name="sound_media_default">Volume keys always control media</string>
+    <string name="sound_media_default_desc">Instead of ringtone volume when nothing is playing. Calls are not affected.</string>
+    <string name="sound_long_press">Long-press to skip tracks</string>
+    <string name="sound_long_press_desc">While music plays and the screen is on: hold Volume up for next, Volume down for previous track.</string>
+    <string name="sound_levels">Volume levels</string>
+    <string name="stream_media">Media</string>
+    <string name="stream_ring">Ringtone</string>
+    <string name="stream_notification">Notifications</string>
+    <string name="stream_alarm">Alarm</string>
+    <string name="stream_call">Calls</string>
+    <string name="sound_dnd">Changing this needs Do Not Disturb access.</string>
+
+    <!-- tiles -->
+    <string name="tile_caffeine">Caffeine</string>
+    <string name="tile_lock">Lock</string>
+    <string name="tile_screenshot">Screenshot</string>
+    <string name="tile_power">Power menu</string>
+    <string name="tile_animations">Animations</string>
+    <string name="tile_media_keys">Media keys</string>
+    <string name="tiles_how">Pull down Control Center → tap the edit (pencil) icon → drag HyperKit tiles into place.</string>
+    <string name="tile_caffeine_desc">Keeps the screen on until you turn it off or the screen is locked.</string>
+    <string name="tile_lock_desc">Locks the screen instantly.</string>
+    <string name="tile_screenshot_desc">Takes a screenshot after the panel closes.</string>
+    <string name="tile_power_desc">Opens the power menu.</string>
+    <string name="tile_animations_desc">Turns all system animations off / back on (needs System Tuner permission).</string>
+    <string name="tile_media_keys_desc">Toggles “Volume keys always control media”.</string>
+    <string name="tile_added">Tile added</string>
+
+    <!-- hidden -->
+    <string name="hidden_note">Some screens exist only on certain HyperOS versions or regions. Long-press an item to pin it to the home screen.</string>
+    <string name="hidden_unavailable">Not available on this device</string>
+    <string name="hidden_failed">This screen cannot be opened on this device</string>
+    <string name="pin_unsupported">Your launcher does not support pinned shortcuts. On HyperOS, allow “Home screen shortcuts” in HyperKit\'s app permissions.</string>
+    <string name="h_dev">Developer options</string>
+    <string name="h_dev_d">Enable it by tapping “OS version” 7 times in About phone.</string>
+    <string name="h_usage">Usage statistics</string>
+    <string name="h_usage_d">Last-used time and screen time of every app.</string>
+    <string name="h_notif_log">Notification log</string>
+    <string name="h_notif_log_d">Every notification received, even dismissed ones.</string>
+    <string name="h_radio">Phone / network info</string>
+    <string name="h_radio_d">Signal strength, preferred network type, IMS status (*#*#4636#*#*).</string>
+    <string name="h_battery">Battery usage</string>
+    <string name="h_battery_d">Per-app battery consumption.</string>
+    <string name="h_autostart">Autostart manager</string>
+    <string name="h_autostart_d">Choose which apps may start in the background.</string>
+    <string name="h_perm">App permissions (HyperOS)</string>
+    <string name="h_perm_d">HyperOS permission manager, incl. “Display pop-up windows”.</string>
+    <string name="h_cit">Hardware test (CIT)</string>
+    <string name="h_cit_d">Test screen, touch, speakers, sensors and more.</string>
+    <string name="h_default_apps">Default apps</string>
+    <string name="h_default_apps_d">Browser, launcher, SMS and other defaults.</string>
+    <string name="h_pip">Picture-in-picture apps</string>
+    <string name="h_pip_d">Allow or block floating video per app.</string>
+    <string name="h_special">Special app access</string>
+    <string name="h_special_d">Overlay, unrestricted data, alarms, full-screen notifications.</string>
+    <string name="h_tuner">System UI tuner</string>
+    <string name="h_tuner_d">AOSP status bar tuner (removed on many builds).</string>
+    <string name="h_running">Running services</string>
+    <string name="h_running_d">RAM use of apps and services running right now.</string>
+    <string name="h_bg_limits">Background app limits</string>
+    <string name="h_bg_limits_d">HyperOS battery saver per app.</string>
+    <string name="h_device_info">Device info &amp; status</string>
+    <string name="h_device_info_d">IMEI, IP and MAC address, uptime.</string>
+
+    <!-- tuner -->
+    <string name="tuner_perm_title">One-time ADB permission</string>
+    <string name="tuner_perm_body">Android does not let apps change these settings by default. Connect your phone to a computer with USB debugging on and run once:</string>
+    <string name="tuner_perm_ok">Permission granted</string>
+    <string name="copy">Copy</string>
+    <string name="copied">Copied</string>
+    <string name="tuner_anim">Animation speed</string>
+    <string name="tuner_anim_window">Window animation</string>
+    <string name="tuner_anim_transition">Transition animation</string>
+    <string name="tuner_anim_duration">Animator duration</string>
+    <string name="tuner_anim_hint">0 = off, 1 = normal, 0.5 = twice as fast</string>
+    <string name="tuner_icons">Hide status bar icons</string>
+    <string name="tuner_icons_hint">Uses the Android icon blacklist. HyperOS honours it only for some icons depending on the version.</string>
+    <string name="tuner_display">Display</string>
+    <string name="tuner_timeout">Screen timeout</string>
+    <string name="tuner_font">Font size</string>
+    <string name="tuner_write_settings">Allow “Modify system settings” for HyperKit to change these.</string>
+    <string name="tuner_allow">Allow</string>
+    <string name="never">Never</string>
+    <string name="icon_alarm">Alarm</string>
+    <string name="icon_bluetooth">Bluetooth</string>
+    <string name="icon_nfc">NFC</string>
+    <string name="icon_volume">Volume / vibrate</string>
+    <string name="icon_zen">Do not disturb</string>
+    <string name="icon_headset">Headset</string>
+    <string name="icon_hotspot">Hotspot</string>
+    <string name="icon_location">Location</string>
+    <string name="icon_vpn">VPN</string>
+    <string name="icon_rotate">Rotation</string>
+    <string name="icon_airplane">Airplane mode</string>
+    <string name="icon_cast">Cast</string>
+
+    <string name="flash_unavailable">Flashlight unavailable</string>
+    <string name="enable_service_first">Turn on the HyperKit service first</string>
+    <string name="about">Vapur Studio · No ads in system menus · No data collected</string>
+</resources>
